@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  xamarinweb.api:
+    image: ${DOCKER_REGISTRY-}xamarinwebapi
+    build:
+      context: .
+      dockerfile: XamarinTesting/XamarinWebAPI/Dockerfile
+
+
+  xamarinweb.db:
+    image: mcr.microsoft.com/mssql/server:2017-latest

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:XamarinTesting.ViewModels"
+             xmlns:models="clr-namespace:XamarinTesting.Models"
+             x:Class="XamarinTesting.Views.EmployeesList"
+             x:DataType="viewmodels:ProfileViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:ProfileViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="auto,*" Padding="10">
+        
+        <Frame Grid.Row="0" CornerRadius="20" HasShadow="True" Padding="10" BackgroundColor="LightBlue">
+        
+            <StackLayout  Orientation="Horizontal">
+            <Image Source="{Binding CurrentUser.Image}" WidthRequest="65"></Image>
+            <StackLayout Orientation="Vertical">
+                <Label VerticalOptions="Center"
+                               FontSize="Small" FontAttributes="Bold"
+                               Text="{Binding CurrentUser.Name}"></Label>
+                <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding CurrentUser.ProfileID}"></Label>
+                <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding CurrentUser.JobCategory}"></Label>
+                <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding CurrentUser.Job}"></Label>
+            </StackLayout>
+
+            </StackLayout>
+        </Frame>
+        <Frame Grid.Row="1" CornerRadius="20" HasShadow="True"  Padding="10">
+        <ListView
+            CachingStrategy="RecycleElement"
+            RefreshCommand="{Binding RefreshCommand}"
+            RefreshControlColor="#187595"
+            IsRefreshing="{Binding IsBusy,Mode=OneWay}"
+            IsPullToRefreshEnabled="True"
+            ItemSelected="ListView_ItemSelected"
+            ItemTapped="ListView_ItemTapped"
+               HasUnevenRows="False" 
+              RowHeight="120"
+              ItemsSource="{Binding Profiles}"
+                   >
+ 
+        <ListView.ItemTemplate >
+            
+            <DataTemplate x:DataType="models:Profile">
+       
+                <ViewCell >
+                    <Grid >
+                             <StackLayout Orientation="Horizontal" Padding="0,10,0,0">
+                                <Image Source="{Binding Image}" WidthRequest="65"></Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label VerticalOptions="Center"
+                               FontSize="Small" FontAttributes="Bold"
+                               Text="{Binding Name}"></Label>
+                                    <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding ProfileID}"></Label>
+                                    <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding JobCategory}"></Label>
+                                    <Label VerticalOptions="Center"
+                               FontSize="Small"
+                               Text="{Binding Job}"></Label>
+                                </StackLayout>
+                                 
+                            </StackLayout>
+                    
+                    </Grid>
+                    
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+            </ListView>
+        </Frame>
+    </Grid>
+</ContentPage>

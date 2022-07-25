@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  xamarinweb.api:
+    container_name: xamarinweb.api
+    restart: on-failure
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:MyConn=server=xamarinweb.db;Database=XamarinWebAPI;user id=sa;password=Pass123!"
+    depends_on: 
+      - xamarinweb.db
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports: 
+      - "8005:80"
+
+  xamarinweb.db:
+    container_name: xamarinweb.db
+    environment:
+      SA_PASSWORD: "Pass123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
